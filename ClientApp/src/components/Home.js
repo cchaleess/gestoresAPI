@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GoogleLogin from 'react-google-login';
+import {GoogleLogin} from 'react-google-login';
 
 export class Home extends Component {
 
@@ -20,7 +20,14 @@ responseGoogle = (response) => {
         image: response.profileObj.imageUrl
     })   
 }  
+noResponse = (response) => {
 
+    this.setState({
+        name: ' no identificado',
+        email: ' no identificado',
+        image: null
+    })   
+}  
     render() {      
         
       return (
@@ -33,10 +40,11 @@ responseGoogle = (response) => {
                           this.responseGoogle(response)
                       }}
                       onFailure={(response) => {
-                          this.responseGoogle(response)
+                          this.noResponse(response)
                       }}
                       cookiePolicy={'single_host_origin'} />
               </div>
+            
               <br /><br /><br />
               <div>
                   <div><h1></h1></div>

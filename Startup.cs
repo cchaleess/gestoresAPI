@@ -9,6 +9,8 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using System.IO;
+using Microsoft.OpenApi.Models;
+
 
 namespace gestoresAPI
 {
@@ -21,27 +23,9 @@ namespace gestoresAPI
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-
         public void ConfigureServices(IServiceCollection services)
         {
-            //*********************GOOGLE AUTHENTICATION****************************
-            /*services.AddAuthentication(options =>
-            {
-                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
-                .AddCookie(options =>
-                {
-                    options.LoginPath = "/account/google-login";
-                })
-                .AddGoogle(options =>
-                {
-                    options.ClientId = "128507741231-f29fn3id10e5nhoihhvhehvgrr8t44r4.apps.googleusercontent.com";
-                    options.ClientSecret = "ORX4n7dQkcq8AJeqzybh2aa6";
-                });*/
-
-            //***************************SWAGGER***********************************
-           
+              services.AddControllers();
               services.AddSwaggerGen(config =>
             
                         {
@@ -52,7 +36,6 @@ namespace gestoresAPI
                 
                         });
 
-                services.AddControllers();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -69,7 +52,6 @@ namespace gestoresAPI
                 = new DefaultContractResolver());           
 
 }
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {           
 
@@ -80,7 +62,6 @@ namespace gestoresAPI
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -115,7 +96,6 @@ namespace gestoresAPI
                 }
             });
 
-            //************************************SWAGGER*********************************
             app.UseSwagger();
             app.UseSwaggerUI(config =>
             {
