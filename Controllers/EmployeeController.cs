@@ -7,6 +7,7 @@ using gestoresAPI.Models;
 using System;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace gestoresAPI.Controllers
 {
@@ -84,7 +85,7 @@ namespace gestoresAPI.Controllers
 
             }
 
-            return new JsonResult(" Empleado Agregado");
+            return new JsonResult("Empleado Agregado");
         }
 
 

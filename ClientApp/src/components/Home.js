@@ -19,30 +19,24 @@ responseGoogle = (response) => {
         email: response.profileObj.email,
         image: response.profileObj.imageUrl
     })   
-}  
-noResponse = (response) => {
 
-    this.setState({
-        name: ' no identificado',
-        email: ' no identificado',
-        image: null
-    })   
+
 }  
     render() {      
         
       return (
           <div className="container">
               <div className = "float-right">
-           <GoogleLogin
+                  <GoogleLogin
                       clientId="128507741231-f29fn3id10e5nhoihhvhehvgrr8t44r4.apps.googleusercontent.com"
                       buttonText="Iniciar Sesion"
                       onSuccess={(response) => {
                           this.responseGoogle(response)
                       }}
-                      onFailure={(response) => {
-                          this.noResponse(response)
-                      }}
-                      cookiePolicy={'single_host_origin'} />
+                     
+                      cookiePolicy={'single_host_origin'}
+                      isSignedIn={true}
+                  />
               </div>
             
               <br /><br /><br />

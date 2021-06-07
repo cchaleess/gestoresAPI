@@ -10,7 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using System.IO;
 using Microsoft.OpenApi.Models;
-
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 
 namespace gestoresAPI
 {
@@ -25,17 +25,9 @@ namespace gestoresAPI
 
         public void ConfigureServices(IServiceCollection services)
         {
+        
               services.AddControllers();
-              services.AddSwaggerGen(config =>
-            
-                        {
-                            config.SwaggerDoc("V1", new Microsoft.OpenApi.Models.OpenApiInfo
-                            {
-                                Title = "Ejemplo Swagger"
-                            });
-                
-                        });
-
+          
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -53,7 +45,7 @@ namespace gestoresAPI
 
 }
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {           
+        {
 
             if (env.IsDevelopment())
             {
@@ -63,7 +55,8 @@ namespace gestoresAPI
             {
                 app.UseExceptionHandler("/Error");
                 app.UseHsts();
-            }
+            }          
+           
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -71,6 +64,8 @@ namespace gestoresAPI
             app.UseSpaStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
+
            app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
@@ -94,12 +89,6 @@ namespace gestoresAPI
                     spa.UseReactDevelopmentServer(npmScript: "start");
 
                 }
-            });
-
-            app.UseSwagger();
-            app.UseSwaggerUI(config =>
-            {
-                config.SwaggerEndpoint("/swagger/V1/swagger.json", "Mi API V1");
             });
         }
     }
